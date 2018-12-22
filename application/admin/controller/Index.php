@@ -14,7 +14,7 @@ class Index extends Controller
 
 
         //判断登陆后session是否存入数据
-        if(session('admin_id')){
+        if(session('id')){
             return view();
         }else{
             return $this->error('请登陆后，在进行操作！','admin/login/login');

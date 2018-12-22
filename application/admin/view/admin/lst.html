@@ -1,0 +1,60 @@
+{extend name="common/best" /}
+<!--主体-->
+{block name="rd"}
+<!--右侧主体区域部分 start-->
+<div class="col-xs-12 col-sm-9 col-lg-10">
+    <ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px 0;margin-bottom:10px;">
+        <li>
+            <a href="javascript:;"><i class="fa fa-cogs"></i>
+                管理员菜单</a>
+        </li>
+        <li class="active">
+            <a href="javascript:;">管理员列表</a>
+        </li>
+    </ol>
+    <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+            <th class="active" colspan="10">管理员列表</th>
+        </tr>
+        <tr>
+            <td class="text-center">ID</td>
+            <td class="text-center">用户名</td>
+            <td class="text-center">昵称</td>
+            <td class="text-center">邮箱</td>
+            <td class="text-center">状态</td>
+            <td class="text-center">操作</td>
+        </tr>
+        {foreach $lst as $key=>$vo }
+        <tr>
+            <td class="text-center">{$vo.id}</td>
+            <td class="text-center">{$vo.username}</td>
+            <td class="text-center">{$vo.nick}</td>
+            <td class="text-center">{$vo.email}</td>
+            <td class="text-center">
+                {if($vo.type) == 1 }
+                <a href="#" class="btn btn-primary btn-xs" role="button">
+                    <i class="fa fa-w fa-check fa-inverse"></i>启用
+                </a>
+                {else}
+                <a href="#" class="btn btn-danger btn-xs" role="button">
+                    <i class="fa fa-close fa-inverse"></i> 禁用
+                </a>
+                {/if}
+            </td>
+            <td class="text-center">
+                <a href="{:url('eitd',['id' => $vo.id])}" class="btn btn-primary btn-xs" role="button">修改</a>
+                <a href="{$vo.id}" class="btn btn-danger btn-xs" role="button">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    {$lst|raw}
+</div>
+</div>
+<!--右侧主体区域部分结束 end-->
+</div>
+{/block}
+
+

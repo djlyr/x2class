@@ -1,0 +1,47 @@
+{extend name="common/best" /}
+<!--主体-->
+{block name="rd"}
+        <!--右侧主体区域部分 start-->
+        <div class="col-xs-12 col-sm-9 col-lg-10">
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <th class="active" colspan="10">温馨提示</th>
+                </tr>
+                <tr>
+                    <td colspan="10">
+                        享信课堂官网：<a href="http://www.x2class.com" target="_blank">www.x2class.com</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="active" colspan="10">系统信息</th>
+                </tr>
+                <tr>
+                    <td>核心框架</td>
+                    <td colspan="5">Thinkphp {$Think.VERSION}</td>
+                </tr>
+                <tr>
+                    <td>PHP版本</td>
+                    <td colspan="5">{$Think.PHP_VERSION}</td>
+                </tr>
+                <tr>
+                    <td>服务器域名:</td>
+                    <td>{$Request.domain}</td>
+                </tr>
+                <tr>
+                    <td>服务器系统：</td>
+                    <td>{$Think.PHP_OS}</td>
+                </tr>
+                <tr>
+                    <td>开发者</td>
+                    <td colspan="5">刘裕嵘</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--右侧主体区域部分结束 end-->
+</div>
+{/block}
+
+
