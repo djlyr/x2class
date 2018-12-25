@@ -68,6 +68,8 @@ class Admin extends Controller
                     $user = Db('admin')->where('username',$post['username'])->find();
                     if(!$user){ //如果不存在就往下走
                         unset($post['password_confirm']);
+                        $th =array('password' => md5($post['password']));
+                        $post = array_replace($post,$th);
                         Db('admin')->data($post)->insert();
                         return $this->success('添加管理员成功！！','lst');
                     }else{
