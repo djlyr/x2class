@@ -9,13 +9,13 @@
                 栏目管理</a>
         </li>
         <li class="active">
-            <a href="">栏目添加</a>
+            <a href="">添加子栏目</a>
         </li>
 
     </ol>
     <ul class="nav nav-tabs" role="tablist">
         <li><a href="{:url('admin/cate/lst')}">栏目列表</a></li>
-        <li class="active"><a href="{:url('admin/cate/add')}">添加栏目</a></li>
+        <li class="active"><a href="{:url('admin/cate/add')}">添加子栏目</a></li>
     </ul>
     <form class="form-horizontal" id="form" action="{:url('admin/cate/add')}" method="post">
         <div class="panel panel-default">
@@ -38,28 +38,16 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">栏目类型</label>
                     <div class="col-sm-9">
-                        <div class="radio" style="float: left;padding-right: 10px">
-                            <label>
-                                <input type="radio" name="type" value="0" checked>
-                                列表页
-                            </label>
-                        </div>
-                        <div class="radio" style="float: left;">
-                            <label>
-                                <input type="radio" name="type" value="1">
-                                单页
-                            </label>
-                        </div>
+                        <div class="radio" style="float: left;padding-right: 10px"><label><input type="radio" name="type" value="0" {if($cid.type)==0} checked {/if}>列表页</label></div>
+                        <div class="radio" style="float: left;"><label><input type="radio" name="type" value="1" {if($cid.type)==1}checked {/if}>单页</label></div>
+
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">所属栏目</label>
                     <div class="col-sm-9">
-                        <select class="js-example-basic-single form-control" name="pid">
-                            <option value="0">顶级栏目</option>
-                            {volist name="lst" id="v"}
-                            <option value="{$v.id}">{$v.catename}</option>
-                            {/volist}
+                        <select class="form-control" name="pid">
+                            <option value="{$cid.id}">{$cid.catename}</option>
                         </select>
                     </div>
                 </div>

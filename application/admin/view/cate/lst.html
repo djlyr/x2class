@@ -23,30 +23,32 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th width="10%">栏目ID</th>
-                        <th width="10%">栏目中文名称</th>
-                        <th width="10%">栏目英文名称</th>
-                        <th width="10%">栏目栏排序</th>
-                        <th width="10%">上级栏目</th>
-                        <th width="10%">操作</th>
+                        <th  class="text-center" width="10%">栏目ID</th>
+                        <th  class="text-center" width="10%">栏目中文名称</th>
+                        <th  class="text-center" width="10%">栏目英文名称</th>
+                        <th  class="text-center" width="10%">栏目栏排序</th>
+                        <th  class="text-center" width="10%">栏目类型</th>
+                        <th  class="text-center" width="10%">操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     {volist name="lst" id="lst"}
                     <tr>
-                        <td>{$lst.id}</td>
+                        <td class="text-center">{$lst.id}</td>
                         <td>{$lst.catename}</td>
-                        <td>{$lst.cate_ename}</td>
-                        <td>{$lst.sort}</td>
-                        <td>{$lst.pid}</td>
-                        <td>
+                        <td class="text-center">{$lst.cate_ename}</td>
+                        <td class="text-center">{$lst.sort}</td>
+
+                        <td class="text-center">{if($lst.type) == 0 }列表页{else}单页{/if}</td>
+                        <td class="text-center">
                             <div class="btn-group">
                                 <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span class="caret"></span></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="">添加子类</a></li>
-                                    <li><a href="">编辑</a></li>
+                                    <li><a href="{:url('addid',['id' => $lst.id])}">添加子类</a></li>
+                                    <li><a href="{:url('edit',['id' => $lst.id])}">编辑</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="javascript:;">删除</a></li>
+                                    <!--<li><a href="javascript:;">删除</a></li>-->
+                                    <li><a href="{:url('del',['id' => $lst.id])}">删除</a></li>
                                 </ul>
                             </div>
                         </td>

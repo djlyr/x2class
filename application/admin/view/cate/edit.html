@@ -9,76 +9,69 @@
                 栏目管理</a>
         </li>
         <li class="active">
-            <a href="">栏目添加</a>
+            <a href="">栏目编辑</a>
         </li>
 
     </ol>
     <ul class="nav nav-tabs" role="tablist">
         <li><a href="{:url('admin/cate/lst')}">栏目列表</a></li>
-        <li class="active"><a href="{:url('admin/cate/add')}">添加栏目</a></li>
+        <li class="active"><a href="{:url('admin/cate/add')}">栏目编辑</a></li>
     </ul>
-    <form class="form-horizontal" id="form" action="{:url('admin/cate/add')}" method="post">
+    <form class="form-horizontal" id="form" action="{:url('admin/cate/editpost')}" method="post">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">栏目管理</h3>
+                <input class="sr-only" name="id" value="{$eid.id}">
             </div>
             <div class="panel-body">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">栏目名称(中文)</label>
                     <div class="col-sm-9">
-                        <input required type="text" name="catename" class="form-control" placeholder="请输入栏目中文名称">
+                        <input required type="text" name="catename" class="form-control" placeholder="请输入栏目中文名称" value="{$eid.catename}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">栏目名称(英文)</label>
                     <div class="col-sm-9">
-                        <input required type="text" name="cate_ename" class="form-control" placeholder="请输入栏目英文名称">
+                        <input required type="text" name="cate_ename" class="form-control" placeholder="请输入栏目英文名称" value="{$eid.cate_ename}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">栏目类型</label>
                     <div class="col-sm-9">
-                        <div class="radio" style="float: left;padding-right: 10px">
-                            <label>
-                                <input type="radio" name="type" value="0" checked>
-                                列表页
-                            </label>
-                        </div>
-                        <div class="radio" style="float: left;">
-                            <label>
-                                <input type="radio" name="type" value="1">
-                                单页
-                            </label>
-                        </div>
+                        <div class="radio" style="float: left;padding-right: 10px"><label><input type="radio" name="type" value="0"{if($eid.type) == 0 } checked {/if}>列表页</label></div>
+                        <div class="radio" style="float: left;"><label><input type="radio" name="type" value="1"{if($eid.type) == 1 } checked {/if}>单页</label></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">所属栏目</label>
                     <div class="col-sm-9">
                         <select class="js-example-basic-single form-control" name="pid">
+                            <option value="{$eid.id}">{$eid.catename}</option>
                             <option value="0">顶级栏目</option>
-                            {volist name="lst" id="v"}
+                            {volist name="eid.qid" id="v"}
                             <option value="{$v.id}">{$v.catename}</option>
                             {/volist}
+
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">栏目描述</label>
                     <div class="col-sm-9">
-                        <input type="text" name="describe" class="form-control" placeholder="阐述栏目">
+                        <input type="text" name="describe" class="form-control" placeholder="阐述栏目" value="{$eid.describe}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">栏目关键词</label>
                     <div class="col-sm-9">
-                        <input type="text" name="keyword" class="form-control" placeholder="多个请用中文'，'号分开！！">
+                        <input type="text" name="keyword" class="form-control" placeholder="多个请用中文'，'号分开！！" value="{$eid.keyword}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">栏目排序</label>
                     <div class="col-sm-9">
-                        <input type="text" name="sort" class="form-control" value="0" placeholder="">
+                        <input type="text" name="sort" class="form-control" value="{$eid.sort}" placeholder="">
                     </div>
                 </div>
             </div>
