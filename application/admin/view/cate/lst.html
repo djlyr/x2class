@@ -48,7 +48,7 @@
                                     <li><a href="{:url('edit',['id' => $lst.id])}">编辑</a></li>
                                     <li class="divider"></li>
                                     <!--<li><a href="javascript:;">删除</a></li>-->
-                                    <li><a href="{:url('del',['id' => $lst.id])}">删除</a></li>
+                                    <li><a href="{:url('del',['id' => $lst.id])}" onclick='return del();' >删除</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -59,10 +59,7 @@
             </div>
         </div>
     </form>
-
-</div>
-<!--右侧主体区域部分结束 end-->
-</div>
+    {$page|raw}
 {/block}
 
 

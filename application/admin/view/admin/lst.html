@@ -44,7 +44,7 @@
             </td>
             <td class="text-center">
                 <a href="{:url('eitd',['id' => $vo.id])}" class="btn btn-primary btn-xs" role="button">修改</a>
-                <a href="{$vo.id}" class="btn btn-danger btn-xs" role="button">删除</a>
+                <a href="{:url('del',['id' => $vo.id])}" onclick='return del();' class="btn btn-danger btn-xs" role="button">删除</a>
             </td>
         </tr>
         {/foreach}

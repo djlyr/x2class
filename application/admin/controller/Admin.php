@@ -4,9 +4,10 @@ namespace app\admin\controller;
 
 use function PHPSTORM_META\elementType;
 use think\Controller;
-use think\Db;
 use think\facade\Validate;
 use think\Request;
+use app\admin\validate\admin as Avlidate;
+use app\Admin\model\Admin as Dadmin;
 
 class Admin extends Controller
 {
@@ -17,33 +18,34 @@ class Admin extends Controller
     }
 
     public function lst(){
-
-        $user = Db::table('xx_admin')->paginate(10);
+        $user = Dadmin::paginate(10);
         return view() ->assign('lst',$user);
     }
 
     public function eitd($id){
-        $user = Db('admin')->where('id',$id)->find();
+
+        $user = Dadmin::find($id);
         return view() -> assign('user',$user);
     }
 
     public function posteitd(Request $request){
         $post = $request->post();
-//        array_filter()方法过滤空数组和null，0
-//        array_diff（）写入要过滤的规则
-//        $post = array_diff($post,array(''));
-        $validate = Validate::make([
-            'username|账号' => 'min:5|max:20',
-            'password|密码' => 'min:8|max:32',   //验证是否必填,最小8位，最大32位
-            'nick|昵称'     => 'require|min:2|max:20',
-            'email|邮箱'     => 'require|email'
-            ]);
-        $status = $validate->check($post);
+        $validate = new Avlidate();
+        $status = $validate->scene('edit')->check($post);
         if($status){
-            $fh = Db('admin')->where('id',$post['id'])->find();
+            $fh = Dadmin::find($post['id']);
             if($fh){
-              Db('admin')->where('id',$post['id'])->update($post);
-              return $this->success('账号修改成功！！','lst');
+
+                if($post['password'] == ''){
+                    $post['password'] = $fh['password'];
+                    Dadmin::where('id',$post['id'])->update($post);
+                    return $this->success('账号修改成功！！','lst');
+                }else{
+                    $post['password'] = md5($post['password']);
+                    Dadmin::where('id',$post['id'])->update($post);
+                    return $this->success('账号修改成功！！','lst');
+                }
+
             }else{
                 return $this->error('写入数据失败！！');
             }
@@ -55,22 +57,16 @@ class Admin extends Controller
     public function addadmin(){
         $user = request()->ispost();
             if($user){
-                $validate = Validate::make([
-                    'username|账号' => 'require|min:5|max:20',
-                    'password|密码' => 'require|min:8|max:32|confirm',   //验证是否必填,最小8位，最大32位
-                    'nick|昵称'     => 'require|min:2|max:20',
-                    'email|邮箱'     => 'require|email'
-                ]);
+                $validate = new Avlidate();
                 $post = input('post.');
-                $status = $validate->check($post);
+                $status = $validate->scene('add')->check($post);
                 if($status){
                     //查找用户是否已经存在
-                    $user = Db('admin')->where('username',$post['username'])->find();
+                    $user = Dadmin::where('username',$post['username'])->find();
                     if(!$user){ //如果不存在就往下走
-                        unset($post['password_confirm']);
-                        $th =array('password' => md5($post['password']));
-                        $post = array_replace($post,$th);
-                        Db('admin')->data($post)->insert();
+                        $post['password'] = md5($post['password']);
+                        $user = new Dadmin;
+                        $user ->allowField(true)->save($post);
                         return $this->success('添加管理员成功！！','lst');
                     }else{
                        return $this->error('账号已存在，请换其他账号注册！！！');
@@ -80,5 +76,15 @@ class Admin extends Controller
                 }
             }
         return view();
+    }
+
+    public function del($id){
+        $user =  Dadmin::get($id);
+        if($user){
+            $user->delete();
+            return $this->success('删除成功！！','lst');
+        }else{
+            return $this->error('找不到该用户！！');
+        }
     }
 }
