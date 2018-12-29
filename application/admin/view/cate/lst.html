@@ -35,7 +35,7 @@
                     {volist name="lst" id="lst"}
                     <tr>
                         <td class="text-center">{$lst.id}</td>
-                        <td>{$lst.catename}</td>
+                        <td>{if($lst.level != 0)}|{/if}<?php echo str_repeat('-',$lst['level']*8) ?>{$lst.catename}</td>
                         <td class="text-center">{$lst.cate_ename}</td>
                         <td class="text-center">{$lst.sort}</td>
 
@@ -59,7 +59,7 @@
             </div>
         </div>
     </form>
-    {$page|raw}
+
 {/block}
 
 

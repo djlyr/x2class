@@ -49,8 +49,8 @@
                         <select class="js-example-basic-single form-control" name="pid">
                             <option value="{$eid.id}">{$eid.catename}</option>
                             <option value="0">顶级栏目</option>
-                            {volist name="eid.qid" id="v"}
-                            <option value="{$v.id}">{$v.catename}</option>
+                            {volist name="qt" id="v"}
+                            <option value="{$v.id}">{if($v.level != 0)}|{/if}<?php echo str_repeat('-',$v['level']*8) ?>{$v.catename}</option>
                             {/volist}
 
                         </select>
